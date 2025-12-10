@@ -1,5 +1,6 @@
 import 'package:bloc_state_management/counter_app/bloc/counter_bloc.dart';
-import 'package:bloc_state_management/counter_app/ui/counter_screen.dart';
+import 'package:bloc_state_management/switch_example/bloc/switch_bloc.dart';
+import 'package:bloc_state_management/switch_example/ui/switch_example_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,8 +14,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CounterBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => CounterBloc()),
+        BlocProvider(create: (context) => SwitchBloc()),
+      ],
       child: MaterialApp(
         title: 'Bloc State Management',
         theme: ThemeData(
@@ -24,7 +28,7 @@ class MyApp extends StatelessWidget {
             centerTitle: true,
           ),
         ),
-        home: CounterScreen(),
+        home: SwitchExampleScreen(),
       ),
     );
   }

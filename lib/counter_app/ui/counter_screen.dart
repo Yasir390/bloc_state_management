@@ -56,11 +56,7 @@ class _CounterScreenState extends State<CounterScreen> {
 
 // 1. UI Layer (CounterScreen)
 // BlocBuilder<CounterBloc, CounterState> → Bloc এর state শুনে UI rebuild করে।
-
 // যখনই নতুন state emit হয়, builder আবার run হয় এবং Text(state.counter.toString()) আপডেট হয়।
-
 // ElevatedButton → Bloc এ event পাঠাচ্ছে (IncrementCounter, DecrementCounter)।
-
 // context.read<CounterBloc>().add(...) → Bloc কে জানাচ্ছে কোন action নিতে হবে।
-
 // 👉 এখানে UI শুধু state দেখাচ্ছে এবং event পাঠাচ্ছে — খুব clean separation।

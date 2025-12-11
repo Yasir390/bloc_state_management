@@ -31,13 +31,13 @@ class _CounterScreenState extends State<CounterScreen> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    context.read<CounterBloc>().add(IncrementCounter());
+                    context.read<CounterBloc>().add(IncrementCounterEvent());
                   },
                   child: Text("Increment"),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    context.read<CounterBloc>().add(DecrementCounter());
+                    context.read<CounterBloc>().add(DecrementCounterEvent());
                   },
                   child: Text("Decrement"),
                 ),

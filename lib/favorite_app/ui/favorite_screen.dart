@@ -34,11 +34,36 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             case ListStatus.success:
               return ListView.builder(
                 physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 itemCount: state.favoriteItemList.length,
                 itemBuilder: (context, index) {
+                  final item = state.favoriteItemList[index];
                   return Card(
                     child: ListTile(
-                      title: Text(state.favoriteItemList[index].value),
+                      title: Text(item.value),
+                      trailing: IconButton(
+                        onPressed: () {
+                          final updatedItem = item.copyWith(
+                            isFavorite: !item.isFavorite,
+                          );
+                          context.read<FavoriteItemBloc>().add(
+                            FavoriteItemToggleEvent(itemModel: updatedItem),
+                          );
+                          // FavoriteItemModel itemModel = FavoriteItemModel(
+                          //   id: item.id,
+                          //   value: item.value,
+                          //   isFavorite: item.isFavorite ? false : true,
+                          // );
+                          // context.read<FavoriteItemBloc>().add(
+                          //   FavoriteItemToggleEvent(itemModel: itemModel),
+                          // );
+                        },
+                        icon: Icon(
+                          item.isFavorite
+                              ? Icons.favorite
+                              : Icons.favorite_border_outlined,
+                        ),
+                      ),
                     ),
                   );
                 },

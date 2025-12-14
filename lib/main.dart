@@ -5,7 +5,6 @@ import 'package:bloc_state_management/favorite_app/ui/favorite_screen.dart';
 import 'package:bloc_state_management/image_picker/bloc/bloc/image_picker_bloc.dart';
 import 'package:bloc_state_management/switch_example/bloc/switch_bloc.dart';
 import 'package:bloc_state_management/to_do/bloc/to_do_bloc/to_do_bloc.dart';
-import 'package:bloc_state_management/to_do/ui/to_do_screen.dart';
 import 'package:bloc_state_management/utils/image_picker_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,10 +28,13 @@ class MyApp extends StatelessWidget {
               ImagePickerBloc(imagePickerUtils: ImagePickerUtils()),
         ),
         BlocProvider(create: (context) => ToDoBloc()),
-        BlocProvider(create: (context) => FavoriteItemBloc(FavoriteRepository())),
+        BlocProvider(
+          create: (context) => FavoriteItemBloc(FavoriteRepository()),
+        ),
       ],
       child: MaterialApp(
         title: 'Bloc State Management',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
           appBarTheme: AppBarTheme(

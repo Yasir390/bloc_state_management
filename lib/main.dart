@@ -1,7 +1,9 @@
 import 'package:bloc_state_management/counter_app/bloc/counter_bloc.dart';
+import 'package:bloc_state_management/emails_get_api/bloc/emails_bloc.dart';
+import 'package:bloc_state_management/emails_get_api/repository/emails_repository.dart';
+import 'package:bloc_state_management/emails_get_api/ui/emails_screen.dart';
 import 'package:bloc_state_management/favorite_app/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:bloc_state_management/favorite_app/repository/favorite_repository.dart';
-import 'package:bloc_state_management/favorite_app/ui/favorite_screen.dart';
 import 'package:bloc_state_management/image_picker/bloc/bloc/image_picker_bloc.dart';
 import 'package:bloc_state_management/switch_example/bloc/switch_bloc.dart';
 import 'package:bloc_state_management/to_do/bloc/to_do_bloc/to_do_bloc.dart';
@@ -31,6 +33,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => FavoriteItemBloc(FavoriteRepository()),
         ),
+        BlocProvider(create: (context) => EmailsBloc(EmailsRepository())),
       ],
       child: MaterialApp(
         title: 'Bloc State Management',
@@ -45,7 +48,7 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return SafeArea(bottom: true, top: false, child: child!);
         }, //to avoid ui show under system navigation bar
-        home: FavoriteScreen(),
+        home: EmailsScreen(),
       ),
     );
   }

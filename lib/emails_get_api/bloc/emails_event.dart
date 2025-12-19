@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 abstract class EmailsEvent extends Equatable {
   const EmailsEvent();
 
-  @override
+  @override 
   List<Object?> get props => [];
 }
 

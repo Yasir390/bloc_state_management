@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:bloc_state_management/emails_get_api/model/emails_response_model.dart';
 import 'package:http/http.dart' as http;
 

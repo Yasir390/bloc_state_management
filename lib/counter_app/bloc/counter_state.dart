@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class CounterState extends Equatable{
   final int counter;
- const CounterState({
+  const CounterState({
     this.counter = 0
   });
 

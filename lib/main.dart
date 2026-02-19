@@ -1,5 +1,4 @@
 import 'package:bloc_state_management/bloc_study/counter_app/bloc/counter_bloc.dart';
-import 'package:bloc_state_management/bloc_study/counter_app/presentation/counter_screen.dart';
 import 'package:bloc_state_management/bloc_study/crud/bloc/crud_bloc.dart';
 import 'package:bloc_state_management/bloc_study/emails_get_api/bloc/emails_bloc.dart';
 import 'package:bloc_state_management/bloc_study/emails_get_api/repository/emails_repository.dart';
@@ -7,9 +6,14 @@ import 'package:bloc_state_management/bloc_study/favorite_app/bloc/favorite_bloc
 import 'package:bloc_state_management/bloc_study/favorite_app/repository/favorite_repository.dart';
 import 'package:bloc_state_management/bloc_study/image_picker/bloc/bloc/image_picker_bloc.dart';
 import 'package:bloc_state_management/bloc_study/switch_example/bloc/switch_bloc.dart';
+import 'package:bloc_state_management/bloc_study/theme_change/bloc/bloc/theme_bloc.dart';
 import 'package:bloc_state_management/bloc_study/to_do/bloc/to_do_bloc/to_do_bloc.dart';
 import 'package:bloc_state_management/bloc_study/utils/image_picker_utils.dart';
 import 'package:bloc_state_management/cubit_study/counter_app_using_cubit/cubit/counter_cubit.dart';
+import 'package:bloc_state_management/cubit_study/multiple_cubit_communication/color/cubit/color_cubit.dart';
+import 'package:bloc_state_management/cubit_study/multiple_cubit_communication/counter/cubit/counter_cubit.dart';
+import 'package:bloc_state_management/cubit_study/multiple_cubit_communication/counter/presentation/counter_page.dart';
+import 'package:bloc_state_management/cubit_study/theme_change/cubit/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,21 +42,28 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => EmailsBloc(EmailsRepository())),
         BlocProvider(create: (context) => CrudBloc()),
         BlocProvider<CounterCubit>(create: (context) => CounterCubit()),
-      ],
-      child: MaterialApp(
-        title: 'Bloc State Management',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
-          appBarTheme: AppBarTheme(
-            backgroundColor: Colors.amber,
-            centerTitle: true,
-          ),
+        BlocProvider<ThemeBloc>(create: (context) => ThemeBloc()),
+        BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
+        BlocProvider<ColorCubit>(create: (context) => ColorCubit()),
+        BlocProvider<CounterCubitMultiListen>(
+          create: (context) =>
+              CounterCubitMultiListen(colorCubit: context.read<ColorCubit>()),
         ),
-        builder: (context, child) {
-          return SafeArea(bottom: true, top: false, child: child!);
-        }, //to avoid ui show under system navigation bar
-        home: CounterScreenUsingBloc(),
+      ],
+      child: BlocBuilder<ThemeCubit, ThemeStateByCubit>(
+        builder: (BuildContext context, state) {
+          return MaterialApp(
+            title: 'Bloc State Management',
+            debugShowCheckedModeBanner: false,
+            theme: state.appTheme == AppThemeByCubit.light
+                ? ThemeData.light()
+                : ThemeData.dark(),
+            builder: (context, child) {
+              return SafeArea(bottom: true, top: false, child: child!);
+            }, //to avoid ui show under system navigation bar
+            home: CounterUI(),
+          );
+        },
       ),
     );
   }

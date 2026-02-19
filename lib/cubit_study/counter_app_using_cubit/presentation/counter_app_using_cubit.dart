@@ -3,7 +3,6 @@ import 'package:bloc_state_management/cubit_study/counter_app_using_cubit/cubit/
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// এখানে তোমার CounterCubit আর CounterState থাকবে
 
 class CounterPage extends StatelessWidget {
   const CounterPage({super.key});
